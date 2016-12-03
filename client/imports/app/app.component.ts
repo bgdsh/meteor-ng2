@@ -1,19 +1,11 @@
-import { Component } from '@angular/core';
-import { Parties } from '../../../both/collections/parties.collection'
-import { Party } from '../../../both/models/party.model'
-import template from './app.component.html';
-import { Observable } from 'rxjs/Observable'
-
+import { Component, OnInit } from '@angular/core';
+import template from './app.component.html' 
 @Component({
   selector: 'app',
   template
 })
-export class AppComponent {
-  private parties: Observable<Party[]>
-  constructor() {
-    this.parties = Parties.find({}).zone();
-  }
-  removeParty(party:Party) :void {
-    Parties.remove(party._id);
-  }
+export class AppComponent implements OnInit {
+  constructor() { }
+
+  ngOnInit() { }
 }
