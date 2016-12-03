@@ -4,6 +4,8 @@
       {{party.name}}
       <p>{{party.description}}</p>
       <p>{{party.location}}</p>
+      <p><button (click)="removeParty(party)">❎</button></p>
     </li>
   </ul>
 </div>
+<parties-form></parties-form>
