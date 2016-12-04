@@ -1,16 +1,20 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import template from './party-details.component.html'
 import { Subscription } from 'rxjs/Subscription'
 import { ActivatedRoute } from '@angular/router'
+import { Meteor } from 'meteor/meteor';
+import { CanActivate } from '@angular/router'
+import 'rxjs/add/operator/map';
+
 import { Parties } from '../../../../both/collections/parties.collection';
 import { Party } from '../../../../both/models/party.model';
-import 'rxjs/add/operator/map';
+import template from './party-details.component.html'
+
 
 @Component({
   selector: 'party-details',
   template
 })
-export class PartyDetailsComponent implements OnInit, OnDestroy {
+export class PartyDetailsComponent implements OnInit, OnDestroy, CanActivate {
   partyId: string
   paramsSub: Subscription
   party: Party
@@ -27,8 +31,17 @@ export class PartyDetailsComponent implements OnInit, OnDestroy {
       });
   }
 
+  canActivate(): boolean {
+    const party = Parties.findOne(this.partyId);
+    return (party && party.owner == Meteor.userId());
+  }
+
   saveParty(): void {
-    Parties.update(this.party._id,{
+    if (!Meteor.userId()) {
+      alert('Please login to edit the party detail');
+      return;
+    }
+    Parties.update(this.party._id, {
       $set: {
         name: this.party.name,
         description: this.party.description,

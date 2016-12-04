@@ -1,4 +1,4 @@
-<form [formGroup]="addForm" (ngSubmit)="onSubmit()">
+<form [formGroup]="addForm" (ngSubmit)="onSubmit()" *ngIf="user">
   <label>Name</label>
   <input type="text" formControlName="name">
   <br>
@@ -10,3 +10,6 @@
   <br>
   <button type="submit">Add</button>
 </form>
+<div *ngIf="!user">
+  Please, log in to change party
+</div>

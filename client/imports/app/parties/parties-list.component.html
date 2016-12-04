@@ -1,4 +1,5 @@
 <div>
+  <login-buttons></login-buttons>
   <ul>
     <li *ngFor="let party of parties | async">
       <a [routerLink]="['/party', party._id]">{{party.name}}</a>

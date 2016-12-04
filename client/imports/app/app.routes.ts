@@ -5,5 +5,10 @@ import { PartiesFormComponent } from './parties/parties-form.component'
 export const routes: Route[] = [
   { path: '', component: PartiesListComponent },
   { path: 'party/:partyId', component: PartyDetailsComponent },
-  { path: 'new', component: PartiesFormComponent }
+  { path: 'new', component: PartiesFormComponent, canActivate:['canActivateForLogin'] }
 ];
+
+export const ROUTES_PROVIDERS = [{
+  provide: 'canActivateForLogin',
+  useValue: () => !! Meteor.userId()
+}];
