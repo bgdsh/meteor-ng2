@@ -2,7 +2,8 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription'
 import { ActivatedRoute } from '@angular/router'
 import { Meteor } from 'meteor/meteor';
-import { CanActivate } from '@angular/router'
+import { CanActivate } from '@angular/router';
+import { MeteorObservable } from 'meteor-rxjs';
 import 'rxjs/add/operator/map';
 
 import { Parties } from '../../../../both/collections/parties.collection';
@@ -17,6 +18,7 @@ import template from './party-details.component.html'
 export class PartyDetailsComponent implements OnInit, OnDestroy, CanActivate {
   partyId: string
   paramsSub: Subscription
+  partySub: Subscription
   party: Party
   constructor(
     private route: ActivatedRoute
@@ -27,7 +29,13 @@ export class PartyDetailsComponent implements OnInit, OnDestroy, CanActivate {
       .map(params => params['partyId'])
       .subscribe(partyId => {
         this.partyId = partyId
-        this.party = Parties.findOne(this.partyId);
+        if (this.partySub) {
+          this.partySub.unsubscribe();
+        }
+        this.partySub = MeteorObservable
+          .subscribe('party', this.partyId).subscribe(() => {
+            this.party = Parties.findOne(this.partyId);
+          });
       });
   }
 
@@ -52,5 +60,6 @@ export class PartyDetailsComponent implements OnInit, OnDestroy, CanActivate {
 
   ngOnDestroy() {
     this.paramsSub.unsubscribe();
+    this.partySub.unsubscribe();
   }
 }

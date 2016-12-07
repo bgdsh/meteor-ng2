@@ -1,5 +1,7 @@
 <div>
   <login-buttons></login-buttons>
+  <input type="text" #searchtext placeholder="search text">  
+  <button type="button" (click)="search(searchtext.value)">Search</button>
   <ul>
     <li *ngFor="let party of parties | async">
       <a [routerLink]="['/party', party._id]">{{party.name}}</a>
