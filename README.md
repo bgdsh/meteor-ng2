@@ -1,5 +1,7 @@
 # Angular2-Meteor Boilerplate
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/bgdsh/meteor-ng2.svg)](https://greenkeeper.io/)
+
 [![bitHound Overall Score](https://www.bithound.io/github/Urigo/angular2-meteor-base/badges/score.svg)](https://www.bithound.io/github/Urigo/angular2-meteor-base) [![bitHound Dependencies](https://www.bithound.io/github/Urigo/angular2-meteor-base/badges/dependencies.svg)](https://www.bithound.io/github/Urigo/angular2-meteor-base/master/dependencies/npm)
 
 
